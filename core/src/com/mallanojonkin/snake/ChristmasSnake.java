@@ -24,8 +24,8 @@ public class ChristmasSnake extends ApplicationAdapter {
 	public boolean detectCollision(){
 		collision = false;
 		collisionRadius = 20;
-//		for (Vector2 pos : theSnake.body){
-//			if ((theSnake.position.x == pos.x + collisionRadius || theSnake.position.x == pos.x - collisionRadius) &&
+//		for (Body pos : theSnake.body){
+//			if ((theSnake.position.x == pos.position.x + collisionRadius || theSnake.position.x == pos.x - collisionRadius) &&
 //					(theSnake.position.y == pos.y)){
 //				System.out.println("Collision");
 //			}
@@ -38,7 +38,7 @@ public class ChristmasSnake extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("kropp.png");
+		//img = new Texture("kropp.png");
 		position = new Vector2(64, 0);
 		speed = 3f;
 		
@@ -94,8 +94,8 @@ public class ChristmasSnake extends ApplicationAdapter {
 			frames = 0;
 		}
 		batch.begin();
-		for (Vector2 pos : theSnake.body){
-			batch.draw(img, pos.x, pos.y);
+		for (Body bodyPart : theSnake.body){
+			batch.draw(bodyPart.imgBody, bodyPart.position.x, bodyPart.position.y);
 		}
 		//batch.draw(theSnake.img, theSnake.position.x -32, theSnake.position.y);
 		batch.draw(theSnake.imgHead, theSnake.position.x, theSnake.position.y);

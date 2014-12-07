@@ -9,7 +9,7 @@ public class Snake {
 	public Texture imgHead;
 	public Texture imgBody;
 	public Vector2 position;
-	public ArrayList<Vector2> body;
+	public ArrayList<Body> body;
 	String direction;
 	final float SPACING;
 	boolean grow;
@@ -21,11 +21,11 @@ public class Snake {
 		direction = dir;
 		SPACING = 10f;
 		grow = false;
-		body = new ArrayList<Vector2>();
-		body.add(new Vector2(pos.x, pos.y));
-		body.add(new Vector2(pos.x, pos.y));
-		body.add(new Vector2(pos.x, pos.y));
-		body.add(new Vector2(pos.x, pos.y));
+		body = new ArrayList<Body>();
+		body.add(new Body(new Vector2(pos.x, pos.y), "horizontal"));
+		body.add(new Body(new Vector2(pos.x, pos.y), "horizontal"));
+		body.add(new Body(new Vector2(pos.x, pos.y), "horizontal"));
+		body.add(new Body(new Vector2(pos.x, pos.y), "horizontal"));
 	}
 	
 	public void moveUp(){
@@ -54,19 +54,13 @@ public class Snake {
 	
 	public void move(){
 		
-//		if (direction.equals("right")){
-//			body.add(0, new Vector2(position.x, position.y));
-//		}
-//		else if (direction.equals("left")){
-//			body.add(0, new Vector2(position.x, position.y));
-//		}
-//		else if (direction.equals("up")){
-//			body.add(0, new Vector2(position.x, position.y));
-//		}
-//		else if (direction.equals("down")){
-//			body.add(0, new Vector2(position.x, position.y));
-//		}
-		body.add(0, new Vector2(position.x, position.y));
+		if (direction.equals("up") || direction.equals("down")){
+			body.add(0, new Body(new Vector2(position.x, position.y), "vertical"));
+		}
+		else if (direction.equals("left") || direction.equals("right")){
+			body.add(0, new Body(new Vector2(position.x, position.y), "horizontal"));
+		}
+		
 		
 		if (!grow){
 			body.remove(body.size() - 1);
