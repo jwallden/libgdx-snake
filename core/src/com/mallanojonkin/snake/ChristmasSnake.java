@@ -30,8 +30,7 @@ public class ChristmasSnake extends ApplicationAdapter {
 //				System.out.println("Collision");
 //			}
 //		}
-		
-		
+			
 		return collision;
 	}
 	
@@ -57,22 +56,22 @@ public class ChristmasSnake extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		frames +=1;
 		
-		if(Gdx.input.isKeyJustPressed(Keys.W) || Gdx.input.isKeyPressed(Keys.UP)){
+		if(Gdx.input.isKeyJustPressed(Keys.W) || Gdx.input.isKeyJustPressed(Keys.UP)){
 			theSnake.moveUp();
 			moveX = 0;
 			moveY = +speed;
 		}
-		else if(Gdx.input.isKeyJustPressed(Keys.S) || Gdx.input.isKeyPressed(Keys.DOWN)){
+		else if(Gdx.input.isKeyJustPressed(Keys.S) || Gdx.input.isKeyJustPressed(Keys.DOWN)){
 			theSnake.moveDown();
 			moveX = 0;
 			moveY = -speed;
 		}
-		else if(Gdx.input.isKeyJustPressed(Keys.D) || Gdx.input.isKeyPressed(Keys.RIGHT)){
+		else if(Gdx.input.isKeyJustPressed(Keys.D) || Gdx.input.isKeyJustPressed(Keys.RIGHT)){
 			theSnake.moveRight();
 			moveX = +speed;
 			moveY = 0;
 		}
-		else if(Gdx.input.isKeyJustPressed(Keys.A) || Gdx.input.isKeyPressed(Keys.LEFT)){
+		else if(Gdx.input.isKeyJustPressed(Keys.A) || Gdx.input.isKeyJustPressed(Keys.LEFT)){
 			theSnake.moveLeft();
 			moveX = -speed;
 			moveY = 0;
@@ -97,7 +96,7 @@ public class ChristmasSnake extends ApplicationAdapter {
 		for (Body bodyPart : theSnake.body){
 			batch.draw(bodyPart.imgBody, bodyPart.position.x, bodyPart.position.y);
 		}
-		//batch.draw(theSnake.img, theSnake.position.x -32, theSnake.position.y);
+		
 		batch.draw(theSnake.imgHead, theSnake.position.x, theSnake.position.y);
 		batch.end();
 	}

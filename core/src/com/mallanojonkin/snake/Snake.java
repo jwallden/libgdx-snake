@@ -60,8 +60,7 @@ public class Snake {
 		else if (direction.equals("left") || direction.equals("right")){
 			body.add(0, new Body(new Vector2(position.x, position.y), "horizontal"));
 		}
-		
-		
+				
 		if (!grow){
 			body.remove(body.size() - 1);
 		}
