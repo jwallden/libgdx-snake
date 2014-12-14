@@ -4,22 +4,24 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 public class ChristmasSnake extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
-	Vector2 position;
-	float moveX;
-	float moveY;
-	float speed;
-	Snake theSnake;
-	boolean draw;
-	int frames;
-	int collisionRadius;
-	boolean collision;
+	private SpriteBatch batch;
+	private Texture img;
+	private Vector2 position;
+	private float moveX;
+	private float moveY;
+	private float speed;
+	private Snake theSnake;
+	private boolean draw;
+	private int frames;
+	private int collisionRadius;
+	private boolean collision;
+	private OrthographicCamera camera;
 	
 	public boolean detectCollision(){
 		collision = false;
@@ -37,6 +39,9 @@ public class ChristmasSnake extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
+		camera = new OrthographicCamera();
+		camera.setToOrtho(false, 1024, 768);
+		
 		//img = new Texture("kropp.png");
 		position = new Vector2(64, 0);
 		speed = 3f;
@@ -92,6 +97,8 @@ public class ChristmasSnake extends ApplicationAdapter {
 			theSnake.move();
 			frames = 0;
 		}
+		camera.update();
+		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 		for (Body bodyPart : theSnake.body){
 			batch.draw(bodyPart.imgBody, bodyPart.position.x, bodyPart.position.y);
