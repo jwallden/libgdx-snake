@@ -15,22 +15,23 @@ public class Snake {
 	final float SPACING;
 	boolean grow;
 	boolean collission;
-	Circle HeadCircle;
+	Circle headCircle;
+	Body tempBody;
 	
 	public Snake(Vector2 pos, String dir){
 		imgHead = new Texture("snake_head_right.png");
 		position = pos;
 		direction = dir;
-		SPACING = 10f;
+		SPACING = 25f;
 		grow = false;
-		HeadCircle = new Circle();
-		HeadCircle.setRadius(10);
+		headCircle = new Circle();
+		headCircle.set(position, 10);
 		
 		body = new ArrayList<Body>();
-		body.add(new Body(new Vector2(pos.x, pos.y), "horizontal"));
-		body.add(new Body(new Vector2(pos.x, pos.y), "horizontal"));
-		body.add(new Body(new Vector2(pos.x, pos.y), "horizontal"));
-		body.add(new Body(new Vector2(pos.x, pos.y), "horizontal"));
+		body.add(new Body(new Vector2(pos.x-SPACING, pos.y), "horizontal"));
+		body.add(new Body(new Vector2(pos.x-64, pos.y), "horizontal"));
+		body.add(new Body(new Vector2(pos.x-128, pos.y), "horizontal"));
+		body.add(new Body(new Vector2(pos.x-256, pos.y), "horizontal"));
 	}
 	
 	public void moveUp(){
@@ -59,17 +60,27 @@ public class Snake {
 	
 	public void move(){
 		
-		if (direction.equals("up") || direction.equals("down")){
-			body.add(0, new Body(new Vector2(position.x, position.y), "vertical"));
+//		if (direction.equals("up") || direction.equals("down")){
+//			body.add(0, new Body(new Vector2(position.x, position.y), "vertical"));
+//		}
+//		else if (direction.equals("left") || direction.equals("right")){
+//			body.add(0, new Body(new Vector2(position.x-SPACING, position.y), "horizontal"));
+//		}
+//				
+//		if (!grow){
+//			body.remove(body.size() - 1);
+//		}
+//		grow = false;
+		for (int i = body.size()-1; i >=1 ;i--){
+			
+			tempBody = body.get(i-1);
+			body.set(i, tempBody);
+			System.out.println( i + " Updated body at: " + body.get(i).position.x + ", " + body.get(i).position.y);
 		}
-		else if (direction.equals("left") || direction.equals("right")){
-			body.add(0, new Body(new Vector2(position.x, position.y), "horizontal"));
-		}
-				
-		if (!grow){
-			body.remove(body.size() - 1);
-		}
-		grow = false;
+		tempBody = new Body(new Vector2(position.x, position.y), "horizontal");
+		//body.get(i).position = position;
+		body.set(0, tempBody);
+		System.out.println("new head at " + body.get(0).position.x + ", " + body.get(0).position.y);
 	}
 	
 }

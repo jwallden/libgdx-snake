@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Body {
 	 Texture imgBody;
 	 Vector2 position;
-	 Circle BodyCircle;
+	 Circle bodyCircle;
 	 
 	 public Body(Vector2 pos, String axis){
 		 if (axis.equals("horizontal")){
@@ -18,7 +18,7 @@ public class Body {
 		 }
 		 
 		 position = pos;
-		 BodyCircle = new Circle();
-		 BodyCircle.setRadius(10);
+		 bodyCircle = new Circle();
+		 bodyCircle.set(position, 10);
 	 }	 
 }

@@ -83,12 +83,17 @@ public class ChristmasSnake extends ApplicationAdapter {
 			frames = 0;
 		}
 		
+		
+		theSnake.headCircle.setPosition(position);
+		
 		//Collision detection
 		for (Body bodyPart: theSnake.body){
-			if (bodyPart.BodyCircle.overlaps(theSnake.HeadCircle)){
-				System.out.println("COLlISION");
+			if (bodyPart.bodyCircle.overlaps(theSnake.headCircle)){
+				//System.out.println("COLLISION");
 			}
 		}
+		
+		
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
