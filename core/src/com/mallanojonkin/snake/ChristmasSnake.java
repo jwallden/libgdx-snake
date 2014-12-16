@@ -11,30 +11,13 @@ import com.badlogic.gdx.math.Vector2;
 
 public class ChristmasSnake extends ApplicationAdapter {
 	private SpriteBatch batch;
-	private Texture img;
 	private Vector2 position;
 	private float moveX;
 	private float moveY;
 	private float speed;
 	private Snake theSnake;
-	private boolean draw;
 	private int frames;
-	private int collisionRadius;
-	private boolean collision;
 	private OrthographicCamera camera;
-	
-	public boolean detectCollision(){
-		collision = false;
-		collisionRadius = 20;
-//		for (Body pos : theSnake.body){
-//			if ((theSnake.position.x == pos.position.x + collisionRadius || theSnake.position.x == pos.x - collisionRadius) &&
-//					(theSnake.position.y == pos.y)){
-//				System.out.println("Collision");
-//			}
-//		}
-			
-		return collision;
-	}
 	
 	@Override
 	public void create () {
@@ -42,16 +25,15 @@ public class ChristmasSnake extends ApplicationAdapter {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 1024, 768);
 		
-		//img = new Texture("kropp.png");
 		position = new Vector2(64, 0);
-		speed = 3f;
+		
+		speed = 200;
 		
 		//Set inital speed and direction
-		moveX = +speed;
+		moveX = speed;
 		moveY = 0;
 		
 		theSnake = new Snake(position, "right");
-		draw = true;
 		frames = 0;
 	}
 
@@ -82,20 +64,30 @@ public class ChristmasSnake extends ApplicationAdapter {
 			moveY = 0;
 		}
 		else if(Gdx.input.isKeyJustPressed(Keys.SPACE)){
-			//theSnake.body.add(0, new Vector2(theSnake.position.x, theSnake.position.y));
 			theSnake.grow();
 			System.out.println(theSnake.body.size());
 		}
 		
-		theSnake.position.x += moveX;
-		theSnake.position.y += moveY;
+		theSnake.position.x += moveX * Gdx.graphics.getDeltaTime();
+		theSnake.position.y += moveY * Gdx.graphics.getDeltaTime();
+		
+		if (theSnake.position.x > 1024 ) theSnake.position.x = 0;
+		if (theSnake.position.x < 0) theSnake.position.x = 1024;
+		if (theSnake.position.y > 768) theSnake.position.y = 0;
+		if (theSnake.position.y < 0) theSnake.position.y = 768;
 		
 		
-		
-		if (frames >= 15) {
+		if (frames >= 17) {
 			System.out.println(theSnake.position.x + " " + theSnake.position.y);
 			theSnake.move();
 			frames = 0;
+		}
+		
+		//Collision detection
+		for (Body bodyPart: theSnake.body){
+			if (bodyPart.BodyCircle.overlaps(theSnake.HeadCircle)){
+				System.out.println("COLlISION");
+			}
 		}
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);

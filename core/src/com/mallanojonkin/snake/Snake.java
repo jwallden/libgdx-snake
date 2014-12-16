@@ -3,6 +3,7 @@ package com.mallanojonkin.snake;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Snake {
@@ -14,6 +15,7 @@ public class Snake {
 	final float SPACING;
 	boolean grow;
 	boolean collission;
+	Circle HeadCircle;
 	
 	public Snake(Vector2 pos, String dir){
 		imgHead = new Texture("snake_head_right.png");
@@ -21,6 +23,9 @@ public class Snake {
 		direction = dir;
 		SPACING = 10f;
 		grow = false;
+		HeadCircle = new Circle();
+		HeadCircle.setRadius(10);
+		
 		body = new ArrayList<Body>();
 		body.add(new Body(new Vector2(pos.x, pos.y), "horizontal"));
 		body.add(new Body(new Vector2(pos.x, pos.y), "horizontal"));
