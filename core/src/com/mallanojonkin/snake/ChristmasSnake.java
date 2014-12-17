@@ -7,10 +7,14 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 public class ChristmasSnake extends ApplicationAdapter {
 	private SpriteBatch batch;
+	private Texture cookieImg;
+	private Circle cookie;
 	private Vector2 position;
 	private Vector2 lastPos;
 	private float moveX;
@@ -23,6 +27,10 @@ public class ChristmasSnake extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
+		cookieImg = new Texture("cookie.png");
+		
+		cookie = new Circle(new Vector2(400,400), 32);
+		
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 1024, 768);
 		
@@ -73,31 +81,38 @@ public class ChristmasSnake extends ApplicationAdapter {
 		theSnake.position.x += moveX * Gdx.graphics.getDeltaTime();
 		theSnake.position.y += moveY * Gdx.graphics.getDeltaTime();
 		
-		if (theSnake.position.x > 1024 ) theSnake.position.x = 0;
-		if (theSnake.position.x < 0) theSnake.position.x = 1024;
-		if (theSnake.position.y > 768) theSnake.position.y = 0;
-		if (theSnake.position.y < 0) theSnake.position.y = 768;
+		if (theSnake.position.x > 1024+32 ) theSnake.position.x = 0;
+		if (theSnake.position.x < 0-32) theSnake.position.x = 1024;
+		if (theSnake.position.y > 768+32) theSnake.position.y = 0;
+		if (theSnake.position.y < 0-32) theSnake.position.y = 768;
 		
-		
-//		if (frames >= 17) {
-//			System.out.println(theSnake.position.x + " " + theSnake.position.y);
-//			theSnake.move();
-//			frames = 0;
-//		}
-		System.out.println("Distance: " + lastPos.dst(theSnake.position));
+
+		//System.out.println("Distance: " + lastPos.dst(theSnake.position));
 		if (lastPos.dst(theSnake.position) >= 55){
 			theSnake.move();
 			lastPos.set(theSnake.position);
 		}
 		
+//		if (lastPos.x <= theSnake.position.x || lastPos.y+55 <= theSnake.position.y){
+//			theSnake.move();
+//			lastPos.set(theSnake.position);
+//		}
 		
-		theSnake.headCircle.setPosition(position);
+		
+		theSnake.headCircle.setPosition(theSnake.position);
 		
 		//Collision detection
-		for (Body bodyPart: theSnake.body){
-			if (bodyPart.bodyCircle.overlaps(theSnake.headCircle)){
-				//System.out.println("COLLISION");
-			}
+//		for (Body bodyPart: theSnake.body){
+//			if (bodyPart.bodyCircle.overlaps(theSnake.headCircle)){
+//				System.out.println("COLLISION");
+//			}
+//		}
+		//Cookie collision
+		if (theSnake.headCircle.overlaps(cookie)){
+			theSnake.grow();
+			cookie.x = MathUtils.random(64, 1024-64);
+			cookie.y = MathUtils.random(64, 768-64);
+			System.out.println("Nom nom");
 		}
 		
 		
@@ -109,6 +124,7 @@ public class ChristmasSnake extends ApplicationAdapter {
 		}
 		
 		batch.draw(theSnake.imgHead, theSnake.position.x, theSnake.position.y);
+		batch.draw(cookieImg, cookie.x, cookie.y);
 		batch.end();
 	}
 }

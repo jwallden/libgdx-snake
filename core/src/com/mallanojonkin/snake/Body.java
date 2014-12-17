@@ -19,6 +19,6 @@ public class Body {
 		 
 		 position = pos;
 		 bodyCircle = new Circle();
-		 bodyCircle.set(position, 10);
+		 bodyCircle.set(position, 5);
 	 }	 
 }

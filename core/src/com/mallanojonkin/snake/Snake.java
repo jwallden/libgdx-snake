@@ -25,7 +25,7 @@ public class Snake {
 		SPACING = 25f;
 		grow = false;
 		headCircle = new Circle();
-		headCircle.set(position, 10);
+		headCircle.set(position, 5);
 		
 		body = new ArrayList<Body>();
 		body.add(new Body(new Vector2(pos.x-SPACING, pos.y), "horizontal"));
