@@ -55,32 +55,17 @@ public class Snake {
 	}
 	
 	public void grow(){
-		grow = true;
+		tempBody = body.get(body.size()-1);
+		body.add(tempBody);
 	}
 	
-	public void move(){
-		
-//		if (direction.equals("up") || direction.equals("down")){
-//			body.add(0, new Body(new Vector2(position.x, position.y), "vertical"));
-//		}
-//		else if (direction.equals("left") || direction.equals("right")){
-//			body.add(0, new Body(new Vector2(position.x-SPACING, position.y), "horizontal"));
-//		}
-//				
-//		if (!grow){
-//			body.remove(body.size() - 1);
-//		}
-//		grow = false;
+	public void move(){		
 		for (int i = body.size()-1; i >=1 ;i--){
-			
 			tempBody = body.get(i-1);
 			body.set(i, tempBody);
-			System.out.println( i + " Updated body at: " + body.get(i).position.x + ", " + body.get(i).position.y);
 		}
 		tempBody = new Body(new Vector2(position.x, position.y), "horizontal");
-		//body.get(i).position = position;
 		body.set(0, tempBody);
-		System.out.println("new head at " + body.get(0).position.x + ", " + body.get(0).position.y);
 	}
 	
 }

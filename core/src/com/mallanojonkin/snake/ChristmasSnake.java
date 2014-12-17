@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 public class ChristmasSnake extends ApplicationAdapter {
 	private SpriteBatch batch;
 	private Vector2 position;
+	private Vector2 lastPos;
 	private float moveX;
 	private float moveY;
 	private float speed;
@@ -26,6 +27,7 @@ public class ChristmasSnake extends ApplicationAdapter {
 		camera.setToOrtho(false, 1024, 768);
 		
 		position = new Vector2(64, 0);
+		lastPos = new Vector2(64,0);
 		
 		speed = 200;
 		
@@ -77,10 +79,15 @@ public class ChristmasSnake extends ApplicationAdapter {
 		if (theSnake.position.y < 0) theSnake.position.y = 768;
 		
 		
-		if (frames >= 17) {
-			System.out.println(theSnake.position.x + " " + theSnake.position.y);
+//		if (frames >= 17) {
+//			System.out.println(theSnake.position.x + " " + theSnake.position.y);
+//			theSnake.move();
+//			frames = 0;
+//		}
+		System.out.println("Distance: " + lastPos.dst(theSnake.position));
+		if (lastPos.dst(theSnake.position) >= 55){
 			theSnake.move();
-			frames = 0;
+			lastPos.set(theSnake.position);
 		}
 		
 		
